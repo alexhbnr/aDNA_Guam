@@ -1,0 +1,5 @@
+sample	library	filter	number of reads	mean coverage	sites >= 5-fold coverage	mode of read length	% of Ns in snpAD consensus sequence	haplogroup	haplogroup quality	proportion of contamination DNA (contamMix)	haplogroup contributions (mixEMT)
+SP4210	D5864	all	3588	10.2	14795	35	3.2	E2a	0.9176	17.7% (12.14-25.49%)	E2a (100%,3443)
+SP4210	D5864	deam	1137	3.2	4061	35	46.8	E2a	0.6444	30.51% (13.42-51.16%)	did not converge
+SP4211	D5865	all	23344	66.8	16554	36	0.1	E2a	0.9894	4.71% (3.32-6.55%)	E2a (100%,22326)
+SP4211	D5865	deam	8243	23.5	16401	38	0.4	E2a	0.9599	0.1% (0.01-1.91%)	E2a (100%,7420)

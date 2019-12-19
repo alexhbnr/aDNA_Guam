@@ -1,0 +1,25 @@
+{
+    "__default__" :
+    {
+        "vfree"  : "4G",
+        "hvmem"  : "4G",
+        "class"  : "*",
+        "out"    : "/mnt/scratch/alexh/tmp/ancGuam/\\$JOB_NAME.\\$JOB_ID.o",
+        "err"    : "/mnt/scratch/alexh/tmp/ancGuam/\\$JOB_NAME.\\$JOB_ID.e"
+    },
+
+    "damageProfiler_5p" :
+    {
+        "vfree" : "12G",
+        "hvmem" : "12G",
+        "class" : "default"
+    },
+
+    "damageProfiler_3p" :
+    {
+        "vfree" : "12G",
+        "hvmem" : "12G",
+        "class" : "default"
+    }
+
+}

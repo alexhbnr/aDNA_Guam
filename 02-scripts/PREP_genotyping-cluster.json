@@ -1,0 +1,17 @@
+{
+    "__default__": {
+        "vfree": "4G",
+        "hvmem": "4G",
+        "class": "*"
+    },
+
+    "bamsample": {
+        "vfree": "2G",
+        "hvmem": "2G"
+    },
+
+    "bamsample_maskedTerminalDeam": {
+        "vfree": "2G",
+        "hvmem": "2G"
+    }
+}
