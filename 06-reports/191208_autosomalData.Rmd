@@ -1,0 +1,79 @@
+---
+title: "Summary of the autosomal SNP data of Ritidian Beach Cave, Guam"
+author: "Alex Hübner"
+date: "`r format(Sys.time(), '%b %d, %Y')`"
+output:
+    pdf_document:
+        fig_caption: yes
+bibliography: 191208_autosomalData.bib
+---
+
+```{r libraries, echo=F}
+library(knitr)
+library(data.table)
+library(tidyverse)
+library(pander)
+opts_chunk$set(echo=F, warning=F, message=F)
+```
+```{r load_data}
+libraries <- fread("../05-results/SUM_libraries.csv")
+snps <- fread("../05-results/SUM_SNPs.csv")
+```
+
+From two samples from Ritidian Beach Cave, Guam, DNA was extracted multiple times and Illumina
+sequencing libraries were generated (Table 1). The produced sequencing libraries were initially
+screened using shotgun sequencing before capture-enrichment for both mtDNA and autosomal SNPs from
+the 1240K array [@Haak2015, @Fu2015] was performed and the enriched libraries paired-end sequenced
+across multiple sequencing runs.
+
+```{r add_metadata, results = "asis"}
+metadata <- tibble(sampleID = c("SP4210", "SP4211"),
+                   sample = c("RBC1", "RBC2"),
+                   description = c("Ritidian Beach Cave, Guam",
+                                   "Ritidian Beach Cave, Guam")) %>%
+            left_join(libraries %>%
+                      group_by(sampleID) %>%
+                      summarise(`no. of libraries` = length(unique(libraryID))),
+                      by = "sampleID")
+pandoc.table(metadata %>%
+             select(name = sample, sampleID, `no. of libraries`),
+             split.table = Inf,
+             caption = "Number of produced Illumina sequencing libraries for Ritidian Beach Cave samples.")
+```
+
+The sequencing data was processed by the following steps. First, Illumina sequencing adapters were
+removed using *leehom* [@Renaud2014] and overlapping read pairs were merged. The sequencing data
+de-multiplexed by assigning reads only to a sample when there were no mismatches between the
+observed and expected double-index combination of seven basepair length. The sequencing data was
+subsequently aligned against the human reference genome *hg19* from the 1000Genomes projects with
+decoy sequences
+(http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/GRCh38_reference_genome/GRCh38_full_analysis_set_plus_decoy_hla.fa)
+using BWA *aln* [@Li2009] with the settings "-n 0.01 -o 2 -l 16500" to allow for a higher number of
+mismatches and switch off the seeding algorithm. We filtered the aligned sequencing data and only
+kept reads for which the paired reads could be merged, had a minimum read length of 35 bp, and a
+minimal mapping quality of 25. Finally, duplicated reads were identified and removed using DeDup
+[@Peltzer2016].
+
+```{r filtering_summary, results = "asis"}
+filtering_stats <- libraries %>%
+                   filter(array == "MT") %>%
+                   group_by(sampleID, libraryID) %>%
+                   summarise(`raw reads` = sum(`raw reads`),
+                             `reads w/ L35` = sum(`reads w/ L35`),
+                             `reads with L35 [%]` = round(`reads w/ L35` / `raw reads` * 100, 2),
+                             `reads with MQ25 [%]` = round(sum(`reads w/ MQ25`) / `raw reads` * 100, 2),
+                             `final reads` = sum(`unique reads`),
+                             `duplication rate` = mean(`duplication rate`)) %>%
+                   ungroup() %>%
+                   mutate(sample = c("RBC1", rep("", 8), "RBC2", rep("", 6))) %>%
+                   select(sample, `libraryID`:`duplication rate`)
+pandoc.table(filtering_stats,
+             split.table = Inf,
+             split.cell = 40,
+             caption = "Summary of the filtering process summarised by library. The percentages of
+             the reads with length >= 35 bp [L35] and the mapping quality >= 25 [MQ25] are based on
+             the raw reads.")
+```
+
+
+# References
