@@ -12,51 +12,65 @@ workdir: "../snakemake_tmp"
 
 rule all:
     input: 
-
+        "supp_figures/QUAL_pairwiseDist.pdf"
 
 rule pairwiseDiff_plt:
     output:
         "supp_figures/QUAL_pairwiseDist.pdf"
     message: "Plot the pairwise difference analysis results for the Guam samples"
     params: 
-        dist = "../04-analysis/qual/pairwiseDist/pairwiseDist_1240K.txt.gz"
+        dist = "../04-analysis/qual/pairwiseDist/pairwiseDist_1240K.txt.gz",
+        inds = "../01-documentation/mergedDataset_Clean.HO-MOD.ancGuamALL.HO-ANC.YRI.FRE.ind"
     run:
         R("""
           library(data.table)
           library(tidyverse)
           
           pairwiseDiff <- fread("{params.dist}")
-          
-          # Extract all comparisons with the Guam samples
-          guam_comparisons <- pairwiseDiff %>%
-                              filter(ind1 %in% c("SP4210.all", "SP4211.all") |
-                                     ind2 %in% c("SP4210.all", "SP4211.all"))
-          
-          # Extract a subset of 25,000 samples of non-Guam samples
-          other_comparisions <- pairwiseDiff %>%
-                                filter(!(ind1 %in% c("SP4210.all", "SP4211.all") |
-                                         ind2 %in% c("SP4210.all", "SP4211.all"))) %>%
-                                filter(noSites > 20000) %>%
-                                sample_n(25000)
-          
-          pairwiseDist_plt <- list(guam_comparisons %>%
-                                   mutate(type = ifelse(ind1 == "SP4210.all" & ind2 == "SP4211.all", "intra-Guam", "inter-Guam")),
-                                   other_comparisions %>%
-                                   mutate(type = "other")) %>%
-                              bind_rows() %>%
-                              mutate(type = factor(type, levels = c("intra-Guam", "inter-Guam", "other"))) %>%
-                              mutate(dummyX = 1) %>%
-                              ggplot(aes(x = dummyX, y = fracDiff, colour = type, alpha = type)) +
-                              geom_jitter(size = 2.5) +
-                              labs(y = "proportion of pairwise differences") +
+          inds <- fread("{params.inds}",
+                        header = F, col.names = c("individual", "sex", "population"))
+
+          pairwiseDiff %<>%
+          # Add population info for ind1
+          left_join(inds %>%
+                    select(ind1 = individual, pop1 = population), by = "ind1") %>%
+          # Add population info for ind2
+          left_join(inds %>%
+                    select(ind2 = individual, pop2 = population), by = "ind2") %>%
+          # Infer comparison type
+          mutate(type = if_else(pop1 == pop2, "intra", "inter"),
+                 type = if_else(pop1 == "anc_Guam" | pop2 == "anc_Guam", paste(type, "Guam", sep="-"),
+                                                                         paste(type, "other", sep="-")))
+
+          pairwiseDiff_subset <- pairwiseDiff %>%
+                                 group_by(type, guam = str_detect(type, "Guam")) %>%
+                                 nest() %>%
+                                 mutate(subset = map(data, ~ {if (nrow(.x) > 25000) {
+                                                                sample_n(.x, 25000) 
+                                                              } else {
+                                                                .x
+                                                              }})) %>%
+                                 select(-data) %>%
+                                 unnest(cols = "subset") %>%
+                                 ungroup() %>%
+                                 select(-guam)
+
+          pairwiseDist_plt <- pairwiseDiff_subset %>%
+                              mutate(type = factor(type, levels = c("intra-Guam", "intra-other",
+                                                                    "inter-Guam", "inter-other"))) %>%
+                              ggplot(aes(x = type, y = fracDiff, colour = type)) +
+                              geom_boxplot() +
+                              geom_vline(xintercept = 2.5, colour = "black", lty = 3) +
+                              annotate("text", x = 1.5, y = 0.5, label = "intra-population") +
+                              annotate("text", x = 3.5, y = 0.5, label = "inter-population") +
+                              labs(x = "comparison types",
+                                   y = "proportion of pairwise different sites") +
+                              scale_x_discrete(labels = rep(c("Guam", "other populations"), 2)) +
                               scale_y_continuous(limits = c(0, 0.5),
                                                  labels = scales::percent_format(accuracy = 1)) +
-                              scale_alpha_manual(values = c(1, 0.7, 0.25)) +
-                              theme_classic(base_size = 11) +
-                              theme(legend.position = "top",
-                                    axis.title.x = element_blank(),
-                                    axis.text.x = element_blank(),
-                                    axis.ticks.x = element_blank())
+                              scale_colour_manual(values = c("red", rep("black", 3))) +
+                              theme_classic() +
+                              theme(legend.position = "none")
           
           ggsave("{output}", plot = pairwiseDist_plt,
                  width = 160, height = 120, units = "mm", useDingbats = F)
