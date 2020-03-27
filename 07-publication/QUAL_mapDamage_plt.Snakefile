@@ -106,11 +106,11 @@ rule plot_damage_summary:
                   strip.background.x = element_blank())
           }}
           
-          plt <- plot_damage(misincoporation, "SP4210") +
-                 plot_damage(misincoporation, "SP4211", legend = "right") +
-                 guide_area() +
-                 plot_layout(ncol = 1, heights = c(1, 1, 0.2), guides = "collect")
+          smiley_plt <- plot_damage(misincoporation, "SP4210") +
+                        plot_damage(misincoporation, "SP4211", legend = "right") +
+                        guide_area() +
+                        plot_layout(ncol = 1, heights = c(1, 1, 0.2), guides = "collect")
           
-          ggsave("{output}",
-                 height = 120, width = 160, units = "mm", useDingbats = F)
+          ggsave("{output}", plot = smiley_plt,
+                 width = 160, height = 100, units = "mm", useDingbats = F)
         """)
