@@ -13,7 +13,8 @@ import pandas as pd
 workdir: "/mnt/genotyping/sk_pipelines/projects/aDNA_Guam"
 
 #### Sequencing runs ###########################################################
-SEQRUNS = {'160906_M02279_0022_lane1': '/mnt/ngs_data/160906_M02279_0022_000000000-AUCAV_BN_D2869/Bustard/BWA/proc1/s_1_sequence_ancient_human_MT.bam',
+SEQRUNS = {'160818_SN7001204_0542_lane2': '/mnt/ngs_data/160818_SN7001204_0542_BHWCVKBCXX_R_PEdi_D5788_D1097_D5886/Bustard/BWA/proc1/s_2_sequence_ancient_hg19_evan.bam', 
+           '160906_M02279_0022_lane1': '/mnt/ngs_data/160906_M02279_0022_000000000-AUCAV_BN_D2869/Bustard/BWA/proc1/s_1_sequence_ancient_human_MT.bam',
            '161208_SN7001204_0563_lane1': '/mnt/ngs_data/161208_SN7001204_0563_AH3WJVBCXY_R_PEdi_D4262_D4264/Bustard/BWA/proc1/s_1_sequence_ancient_hg19_evan.bam',
            '161208_SN7001204_0564_lane1': '/mnt/ngs_data/161208_SN7001204_0564_BH3WKLBCXY_R_PEdi_D4267_D4268/Bustard/BWA/proc1/s_1_sequence_ancient_hg19_evan.bam',
            '170906_D00829_0070_lane1': '/mnt/ngs_data/170906_D00829_0070_AHNVFNBCXY_R_PEdi_F8888_G1774/Bustard/BWA/proc1/s_1_sequence_ancient_hg19_evan.bam',
@@ -46,7 +47,7 @@ rule index_list:
     run:
         indexlist = pd.read_csv(params.indexlist, sep="\t", index_col=[2])
         # Remove all index combinations that are not from Flores samples
-        indexlist = indexlist.loc[LIBLIST].dropna(axis=0, how="all")
+        indexlist = indexlist.loc[indexlist.index.isin(LIBLIST)].dropna(axis=0, how="all")
         indexlist = indexlist.reset_index()
         indexlist.columns = ['readgroup', 'p7', 'p5']
         indexlist.to_csv(output[0], sep="\t", index=False)
