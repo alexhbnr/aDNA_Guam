@@ -99,6 +99,7 @@ rule sex_determination:
                   groupby(level=0).count()
                   for array in ARRAY_BEDS]
         capture_sites = reduce(lambda left, right: left.join(right), arrays)
+        capture_sites['1240K'] = capture_sites['390K'] + capture_sites['390Ksupp']
         # Expected ratio for females
         capture_sites['autosomes'] = ~capture_sites.index.isin(['X', 'Y'])
         capture_sites = capture_sites.drop(['Y'])
@@ -109,20 +110,44 @@ rule sex_determination:
         expected_female = expected_female.set_index(['array'])
 
         # Number of alleles observed per library
+        extract_info = re.compile(r'(SP[0-9]+)-([A-Z][0-9]+)-([0-9]+_[A-Z]+[0-9]+_[0-9]+_lane[0-9])\.([a-z]+).bp_per_chr.txt')
+        lib_attr = pd.DataFrame([extract_info.search(f"analysis/qual/sex/{lib}.{flt}.bp_per_chr.txt").groups()
+                                 for lib in LIBS.keys()
+                                 for flt in FLTS.keys()],
+                                 columns=['sample', 'library', 'run', 'flt'])
+        lib_attr['prefix'] = [f'{lib}.{flt}' for lib in LIBS.keys() for flt in FLTS.keys()]
+        lib_attr['array'] = [ARRAYS.loc[run, 'array'] for run in lib_attr['run']]
+
         libs = [pd.read_csv(fn, sep="\t", index_col=[0],
                             dtype={'chrom': str})
                 for fn in glob("analysis/qual/sex/*.bp_per_chr.txt")]
-        extract_info = re.compile(r'(SP[0-9]+)-[A-Z][0-9]+-([0-9]+_[A-Z]+[0-9]+_[0-9]+_lane[0-9])\.([a-z]+).bp_per_chr.txt')
-        lib_attr = [extract_info.search(fn).groups()
-                    for fn in glob("analysis/qual/sex/*.bp_per_chr.txt")]
-        lib_ratios = pd.concat([calculate_ratio(lib, attrs[0], ARRAYS.loc[attrs[1], 'array'], attrs[2])
-                                for lib, attrs in zip(libs, lib_attr)])
-        lib_ratios_summary = lib_ratios[['sample', 'flt', 'array', 'observed']]. \
-                                groupby(['sample', 'flt', 'array']).agg('mean'). \
-                             reset_index()
-        lib_ratios_summary['expected'] = expected_female.loc[lib_ratios_summary['array'], 'ratio'].values
-        lib_ratios_summary['ratio'] = lib_ratios_summary['observed'] / lib_ratios_summary['expected']
-        lib_ratios_summary['sex'] = ["male" if r < 0.6 else "female" for r in lib_ratios_summary['ratio']]
-        lib_ratios_summary.to_csv(output[0], sep="\t", index=False)
+        # Infer the array state of each run
+        def calculate_ratio(runs):
+            index = [str(i) for i in range(1, 23)] + ['X', 'Y']
+            # Calculate cumulative coverage across all libraries filter by the same scheme
+            cumcov = pd.read_csv(f'analysis/qual/sex/{runs[0]}.bp_per_chr.txt',
+                                 sep="\t", index_col=[0]) \
+                .reindex(index) \
+                .drop(['Y'])
+            for i, run in enumerate(runs[1:]):
+                cov_run = pd.read_csv(f'analysis/qual/sex/{run}.bp_per_chr.txt',
+                                      sep="\t", index_col=[0]) \
+                    .reindex(index) \
+                    .drop(['Y'])
+                cov_run = cov_run.fillna(value=0)
+                cumcov += cov_run
+
+            cumcov['autosomes'] = ~cumcov.index.isin(['X', 'Y'])
+            obs_female = cumcov.groupby(['autosomes']).agg(['mean']). \
+                transpose()
+            obs_female.columns = ['X', 'autosomes']
+            obs_female['observed'] = obs_female['X'] / obs_female['autosomes']
+            return obs_female
+
+        x_auto_ratio = lib_attr.groupby(['sample', 'flt']).apply(lambda x: calculate_ratio(x['prefix'].tolist()))
+        x_auto_ratio['expected'] = expected_female.loc['1240K', 'ratio']
+        x_auto_ratio['ratio'] = x_auto_ratio['observed'] / x_auto_ratio['expected']
+        x_auto_ratio['sex'] = ["male" if r < 0.6 else "female" for r in x_auto_ratio['ratio']]
+        x_auto_ratio.to_csv(output[0], sep="\t", index=False)
 
 ################################################################################
