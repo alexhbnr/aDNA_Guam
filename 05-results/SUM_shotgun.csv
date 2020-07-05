@@ -1,3 +1,3 @@
-sampleID	libraryID	raw reads	reads w/ L35	mode read length	reads w/ MQ25	% endogenous	unique reads	% unique	4	deaminated reads	5' C>T frequency	3' C>T frequency
-SP4210	D5864	3944261	2712084	35	363	0.013	362	100	4	97	51.22	27.06
-SP4211	D5865	4011142	2750463	37	544	0.02	539	99	4	146	57.52	34.04
+sampleID	libraryID	raw reads	reads w/ L35	mode read length	reads w/ MQ25	% endogenous	unique reads	% unique	deaminated reads	5' C>T frequency	3' C>T frequency
+SP4210	D5864	3944261	2712084	35	363	0.013	362	99.7	97	51.22	27.06
+SP4211	D5865	4011142	2750463	37	544	0.02	539	99.1	146	57.52	34.04

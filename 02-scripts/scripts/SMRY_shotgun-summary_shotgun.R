@@ -63,7 +63,7 @@ overview_libraries %>%
 select(-seqrunID) %>%
 left_join(analyzeBAM, by = "id") %>%
 left_join(dedup, by = "id") %>%
-mutate(`% unique` = round(`unique reads` * 100 / `reads w/ MQ25`), 4) %>%
+mutate(`% unique` = round(`unique reads` * 100 / `reads w/ MQ25`, 1)) %>%
 left_join(filtered_reads, by = "id") %>%
 left_join(subst_freq, by = "id") %>%
 left_join(average_length, by = "id") %>%
