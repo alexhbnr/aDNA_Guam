@@ -155,9 +155,8 @@ rule damageProfiler:
     threads: 4
     shell:
         """
-        java -Xms512M -Xmx12G \
+        damageprofiler -Xms512M -Xmx12G \
              -Djava.awt.headless=true \
-             -jar /home/alexander_huebner/miniconda3/share/damageprofiler-0.4.5-1/DamageProfiler-0.4.5.jar \
              -i {input} \
              -o {params.tmpdir} \
              -r {params.reffasta} \
