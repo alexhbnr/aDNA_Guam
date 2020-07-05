@@ -32,7 +32,7 @@ plot_damage <- function(misinc, smp, xaxis_title = T) {
        geom_line(aes(colour = col_cat, y = frac)) +
        facet_wrap(~ end, ncol = 2, scales = "free_x") +
        labs(x = "position at read end",
-            y = "mean fraction",
+            y = "frequency",
             colour = "substitution type",
             fill = "substitution type",
             title = smp) +
