@@ -3,9 +3,12 @@ library(tidyverse)
 
 obs <- fread(snakemake@params[["obs"]]) %>%
        mutate(flt = recode(flt, all = "all fragments",
-                                deam = "deaminated fragments only"))
+                                deam = "deaminated fragments only"),
+              sample = recode(sample, SP4210 = "RBC1",
+                                      SP4211 = "RBC2"))
 
 female_value <- unique(fread(snakemake@params[["exp"]])$female)
+male_value <- unique(fread(snakemake@params[["exp"]])$male)
 
 sex_plt <- ggplot(obs,
                   aes(x = sample, y = female)) +
@@ -14,12 +17,13 @@ sex_plt <- ggplot(obs,
            # Add expected values
            scale_y_continuous(limits = c(0.015, 0.045)) +
            geom_hline(yintercept = female_value, colour = "grey50", lty = 3, size = 1.05) +
-           geom_hline(yintercept = 0.5 * female_value, colour = "grey50", lty = 3, size = 1.05) +
-           #geom_text(data = data.frame(x = c(-Inf, rep(Inf, 3)),
-                                       #y = rep(c(0.95, 0.45) * female_value, 2),
-                                       #label = c("female", rep("", 2), "male")),
-                      #aes(x = x, y = y, label = label),
-                      #size = 4, hjust = c(-0.1, rep(1.1, 3)), inherit.aes = F) +
+           geom_hline(yintercept = male_value, colour = "grey50", lty = 3, size = 1.05) +
+           geom_text(data = data.frame(x = c(-Inf, rep(Inf, 3)),
+                                       y = rep(c(1.05 * female_value,
+                                                 0.95 * male_value), 2),
+                                       label = c("female", rep("", 2), "male")),
+                      aes(x = x, y = y, label = label),
+                      size = 4, hjust = rep(c(-0.1, rep(1.1, 3)), 2), inherit.aes = F) +
            labs(x = "sample",
                 y = "coverage ratio X / (X + autosomes)") +
            theme_classic(base_size = 10) +
