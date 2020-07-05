@@ -24,7 +24,9 @@ misincorporation <- map_dfr(libdirs, function(fn) {
                     mutate(plot_pos = ifelse(end == "3p", pos * (-1), pos),
                            end = factor(ifelse(end == "3p", "3'", "5'"), levels = c("5'", "3'"))) %>%
                     left_join(tibble(subst = c("C>T", "G>A", "A>C", "A>G", "A>T", "C>A", "C>G", "G>C", "G>T", "T>A", "T>C", "T>G"),
-                                     col_cat = c("C>T", "G>A", rep("other", 10))), by = "subst")
+                                     col_cat = c("C>T", "G>A", rep("other", 10))), by = "subst") %>%
+                    mutate(sample = recode(sample, SP4210 = "RBC1",
+                                                   SP4211 = "RBC2"))
 
 plot_damage <- function(misinc, smp, xaxis_title = T) {
   p <- filter(misinc, sample == smp) %>%
@@ -49,8 +51,8 @@ plot_damage <- function(misinc, smp, xaxis_title = T) {
   else p
 }
 
-smiley_plt <- plot_damage(misincorporation, "SP4210", xaxis_title = F) +
-              plot_damage(misincorporation, "SP4211", xaxis_title = T) +
+smiley_plt <- plot_damage(misincorporation, "RBC1", xaxis_title = F) +
+              plot_damage(misincorporation, "RBC2", xaxis_title = T) +
               guide_area() +
               plot_layout(ncol = 1, heights = c(1, 1, 0.2), guides = "collect")
 
