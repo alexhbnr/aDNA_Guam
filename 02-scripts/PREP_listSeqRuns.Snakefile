@@ -15,7 +15,8 @@ rule capture_arrays:
         "documentation/capture_arrays.tsv"
     message: "Generate list of capture arrays used for each sequencing run"
     run:
-        capture_arrays = {'160906_M02279_0022_lane1': 'MT',
+        capture_arrays = {'160818_SN7001204_0542_lane2': 'shotgun',
+                          '160906_M02279_0022_lane1': 'MT',
                           '161208_SN7001204_0563_lane1': '390Ksupp',
                           '161208_SN7001204_0564_lane1': '390K',
                           '170906_D00829_0070_lane1': 'MT',
