@@ -32,9 +32,10 @@ yHaplo_res <- fread(str_c(snakemake@params[["dir"]], "/../ancGuam.Y.vcf.gz")) %>
                        ALT == "." & REF == derA ~ ancA,
                        ALT != "." ~ ALT,
                      ),
-                     hgvs = str_c("hg19 chrY.g", POS, REF, ">", ALT),
+                     hgvs = str_c("hg19 chrY:g.", POS, REF, ">", ALT),
                      `defining yHaplo path` = if_else(SNP %in% path_snps, "yes", "no")) %>%
               select(hgvs, SNP, haplogroup, `observed allele` = obsA, 
-                     `ISOGG allele type` = type, `defining yHaplo path`, coverage)
+                     `ISOGG allele type` = type, `defining yHaplo path`, coverage) %>%
+              arrange(haplogroup, hgvs)
 
 fwrite(yHaplo_res, sep = "\t", file = snakemake@output[[1]], na = "-")
