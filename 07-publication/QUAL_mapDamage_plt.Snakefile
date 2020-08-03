@@ -32,10 +32,12 @@ rule plot_damage_summary:
         "scripts/QUAL_mapDamage_plt-plot_damage_summary.R"
 
 rule plot_damage_shotgun:
+    input:
+        "../05-results/QUAL_mapDamage.RData"
     output:
         "../07-publication/supp_figures/QUAL_shotgun_damage.pdf"
     message: "Plot summary of damage plot"
-    params: 
-        dir = "/mnt/genotyping/sk_pipelines/projects/aDNA_Guam/analysis/logs/damageprofiler/"
+    params:
+        array = "../01-documentation/capture_arrays.tsv"
     script:
         "scripts/QUAL_mapDamage_plt-plot_damage_shotgun.R"
