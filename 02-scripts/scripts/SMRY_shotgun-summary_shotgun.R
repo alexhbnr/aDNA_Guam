@@ -1,15 +1,28 @@
 library(data.table)
 library(tidyverse)
+library(readxl)
+
+# Read XLSX data
+lab_values <- read_xlsx(snakemake@params[["qpcr"]]) %>%
+              select(1, 8:11)
+names(lab_values) <- as.character(lab_values[1,])
+lab_values <- lab_values[2:nrow(lab_values),]
+
 
 # Identify Guam samples
 samples <- list.files("analysis", full.names = T)
 samples <- samples[str_detect(basename(samples), "^SP[0-9]+")]
 
+# Identify list of shotgun sequencing runs
+shotgun_runs <- fread(snakemake@params[["capture_array"]]) %>%
+                filter(array == "shotgun") %>%
+                pull(seqrun_id)
+
 # Identify sequencing files for shotgun runs
 seqruns <- sapply(samples, function(s) str_replace_all(list.files(s, pattern = "\\.uniq\\.L35MQ25\\.deam.bam$"),
                                                        "\\.uniq\\.L35MQ25\\.deam.bam$", ""), USE.NAMES = F) %>%
            unlist() %>%
-           .[str_detect(., "160818")]
+           .[str_split_fixed(., "-", n=3)[,3] %in% shotgun_runs]
           
 # Generate sample scaffold
 overview_libraries <- tibble(id = seqruns,
@@ -25,7 +38,7 @@ analyzeBAM <- map_df(seqruns, function(s) {
                         `reads w/ L35` = ML_pass,
                         `reads w/ MQ25` = MQ_pass)
             }) %>%
-            mutate(`% endogenous` = round(`reads w/ MQ25` * 100 / `reads w/ L35`, 3))
+            mutate(`% mapped L35MQ25` = round(`reads w/ MQ25` * 100 / `reads w/ L35`, 3))
 
 # Summarise dedup
 dedup <- map_df(seqruns, function(s) {
@@ -48,27 +61,24 @@ subst_freq <- fread(snakemake@params[["damageprofiler"]],
                      `3'CT` = `-1`) %>%
               mutate(`5'CT` = round(`5'CT` * 100, 2),
                      `3'CT` = round(`3'CT` * 100, 2))
-## Summarise read length
-average_length <- fread(snakemake@params[["averagelength"]], select = c(2, 5)) %>%
-                  filter(library %in% seqruns) %>%
-                  rename(id = `library`,
-                         `mode read length` = mode)
 
 ## Summarise filterBAM.py
 filtered_reads <- fread(snakemake@params[["noreads_deam"]]) %>%
                   filter(id %in% seqruns) %>%
-                  rename(`deaminated reads` = nSamples)
+                  rename(`deaminated L35MQ25 reads` = nSamples)
 
 overview_libraries %>%
 select(-seqrunID) %>%
 left_join(analyzeBAM, by = "id") %>%
 left_join(dedup, by = "id") %>%
-mutate(`% unique` = round(`unique reads` * 100 / `reads w/ MQ25`, 1)) %>%
+mutate(`average_duplications` = round(`reads w/ MQ25` / `unique reads`, 2)) %>%
 left_join(filtered_reads, by = "id") %>%
 left_join(subst_freq, by = "id") %>%
-left_join(average_length, by = "id") %>%
-select(sampleID:`reads w/ L35`, `mode read length`,
-        `reads w/ MQ25`:`deaminated reads`,
+mutate(sampleID = recode(sampleID, SP4210 = "RBC1", SP4211 = "RBC2")) %>%
+left_join(lab_values, by = c("libraryID" = "#Index library ID")) %>%
+select(sampleID:libraryID,
+       `Amount powder (mg)`:`# qPCR (spike-in)`,
+       `raw reads`:`deaminated L35MQ25 reads`,
         `5' C>T frequency` = `5'CT`,
         `3' C>T frequency` = `3'CT`) %>%
 fwrite(., sep = "\t", file = snakemake@output[[1]])
