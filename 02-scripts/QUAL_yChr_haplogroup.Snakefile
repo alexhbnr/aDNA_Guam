@@ -15,7 +15,9 @@ SAMPLES = ['SP4210']
 
 
 rule all:
-    input: "analysis/qual/yHaplo/haplogroups.ancGuam.Y.txt"
+    input:
+        "analysis/qual/yHaplo/haplogroups.ancGuam.Y.txt",
+        "results/YCHR_hgvs.csv"
 
 rule subset_vcf_to_Ychr:
     output:
@@ -52,3 +54,14 @@ rule yhaplo:
                 -asd -dsd -hpd \
                 -o {params.dir}
         """
+
+rule summarise_hgvs:
+    input:
+        "analysis/qual/yHaplo/haplogroups.ancGuam.Y.txt"
+    output:
+        "results/YCHR_hgvs.csv"
+    message: "Summarise the output of yHaplo in HGVS format"
+    params:
+        dir = "analysis/qual/yHaplo"
+    script:
+        "scripts/QUAL_yChr_haplogroup-summarise_hgvs.R"
