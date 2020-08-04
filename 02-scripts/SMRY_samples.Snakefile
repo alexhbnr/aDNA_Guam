@@ -150,6 +150,36 @@ rule overlap_axiom_gw_ceu1:
         done >> {output}
         """
 
+rule generate_mega_bed:
+    output:
+        "/mnt/genotyping/sk_pipelines/projects/aDNA_Flores/documentation/MEGA.bed.gz"
+    message: "Convert PLINK BIM file to BED for MEGA positions"
+    params:
+        bim = "/home/irina_pugach/aDNA_Indonesia_Guam/New_Guam/Data/MEGA/OGVP.Guam.bim"
+    shell:
+        """
+        bioawk -t '{{print $1, $4 - 1, $4}}' {params.bim} | bgzip > {output}
+        """
+
+rule overlap_mega:
+    input:
+        "/mnt/genotyping/sk_pipelines/projects/aDNA_Flores/documentation/MEGA.bed.gz"
+    output:
+        "analysis/genotypes/dataset_info/MEGA.txt"
+    message: "Summarise the number of SNPs per sample that overlap with the MEGA array"
+    params:
+        vcf_dir = "analysis/genotypes"
+    shell:
+        """
+        echo -e "sample\tfilter\tnSNPs" > {output}
+        for vcf in {params.vcf_dir}/*.vcf.gz; do
+            if [[ ${{vcf}} == *"deam"* ]]; then
+                echo -e "$(basename ${{vcf}} | cut -d'.' -f1)\tdeam\t$(bcftools view -H -T {input} ${{vcf}} | wc -l)"
+            else
+                echo -e "$(basename ${{vcf}} | cut -d'.' -f1)\tall\t$(bcftools view -H -T {input} ${{vcf}} | wc -l)"
+            fi
+        done >> {output}
+        """
 
 rule summary:
     input:
@@ -158,29 +188,12 @@ rule summary:
         archaicadmix = "analysis/genotypes/dataset_info/archaicadmixture.txt",
         human_origins = "analysis/genotypes/dataset_info/HumanOrigins.txt",
         affymetrix6 = "analysis/genotypes/dataset_info/Affymetrix6.txt",
-        axiom_gw_ceu1 = "analysis/genotypes/dataset_info/Axiom_GW_CEU1.txt"
+        axiom_gw_ceu1 = "analysis/genotypes/dataset_info/Axiom_GW_CEU1.txt",
+        mega = "analysis/genotypes/dataset_info/MEGA.txt"
     output:
         "results/SUM_SNPs.csv"
     message: "Summarises all information regarding the libraries of the Flores samples"
     params: 
         dir = "analysis/genotypes/dataset_info"
-    run:
-        R("""
-        library(data.table)
-        library(tidyverse)
-
-        snp_fns <- list.files("{params.dir}", full.names = T)
-        print(snp_fns)
-        snp_summary <- map_df(snp_fns, function(fn) {{
-                         fread(fn) %>%
-                         mutate(array = str_replace(basename(fn), "\\\.txt", ""))
-                       }}) %>%
-                       spread(array, nSNPs) %>%
-                       mutate(`1240K` = `390K` + `390Ksupplement`,
-                              filter = ifelse(filter == "deam", "deaminated only", "all")) %>%
-                       select(sample, reads = filter,
-                              `390K`, `390Ksupplement`, `1240K`, `archaicadmixture`,
-                              HumanOrigins, `Affymetrix6.0` = `Affymetrix6`,
-                              `Axiom GWAS CEU1` = Axiom_GW_CEU1)
-        fwrite(snp_summary, sep = "\t", file = "{output}")
-        """)
+    script:
+        "scripts/SMRY_samples-summary.R"
