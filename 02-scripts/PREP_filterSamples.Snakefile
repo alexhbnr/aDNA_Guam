@@ -146,7 +146,7 @@ rule damageProfiler:
     input:
         "analysis/tmp/{sample}_{id}.uniq.L35MQ25.mdfix.bam"
     output:
-        "analysis/logs/damageprofiler/{sample}/{id}/identity_histogram.pdf"
+        "analysis/logs/damageprofiler/{sample}/{id}/DamagePlot.pdf"
     message: "Run DamageProfiler on library {wildcards.id} of sample {wildcards.sample}"
     params:
         dir = "analysis/logs/damageprofiler/{sample}/{id}",
@@ -167,7 +167,7 @@ rule damageProfiler:
 
 rule average_length:
     input: 
-        ["analysis/logs/damageprofiler/{sample}/{id}/identity_histogram.pdf".format(sample=BAMS[bam], id=bam) for bam in BAMS.keys()]
+        ["analysis/logs/damageprofiler/{sample}/{id}/DamagePlot.pdf".format(sample=BAMS[bam], id=bam) for bam in BAMS.keys()]
     output:
         "analysis/logs/average_length.txt"
     message: "Summarise the read length distribution of all libraries"
@@ -202,7 +202,7 @@ rule average_length:
 
 rule summarise_ct_frequency:
     input: 
-        ["analysis/logs/damageprofiler/{sample}/{id}/identity_histogram.pdf".format(sample=BAMS[bam], id=bam) for bam in BAMS.keys()]
+        ["analysis/logs/damageprofiler/{sample}/{id}/DamagePlot.pdf".format(sample=BAMS[bam], id=bam) for bam in BAMS.keys()]
     output:
         "analysis/logs/5p3p_substitution_summary.txt"
     message: "Summarise the C to T frequency at first ten bases of each the 5' and 3' end"
