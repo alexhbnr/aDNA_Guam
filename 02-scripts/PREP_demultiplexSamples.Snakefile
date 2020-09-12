@@ -18,6 +18,7 @@ SEQRUNS = {'160818_SN7001204_0542_lane2': '/mnt/ngs_data/160818_SN7001204_0542_B
            '161208_SN7001204_0563_lane1': '/mnt/ngs_data/161208_SN7001204_0563_AH3WJVBCXY_R_PEdi_D4262_D4264/Bustard/BWA/proc1/s_1_sequence_ancient_hg19_evan.bam',
            '161208_SN7001204_0564_lane1': '/mnt/ngs_data/161208_SN7001204_0564_BH3WKLBCXY_R_PEdi_D4267_D4268/Bustard/BWA/proc1/s_1_sequence_ancient_hg19_evan.bam',
            '170630_D00829_0053_lane1': '/mnt/ngs_data/170630_D00829_0053_BHJ2FTBCXY_R_PEdi_F7703_F7509/Bustard/BWA/proc1/s_1_sequence_ancient_hg19_evan.bam',
+           '170822_M02279_0141_lane1': '/mnt/ngs_data/170822_M02279_0141_000000000-BB4NL_BN_F5105/Bustard/BWA/proc1/s_1_sequence_ancient_human_MT.bam',
            '170906_D00829_0070_lane1': '/mnt/ngs_data/170906_D00829_0070_AHNVFNBCXY_R_PEdi_F8888_G1774/Bustard/BWA/proc1/s_1_sequence_ancient_hg19_evan.bam',
            '171020_D00829_0083_lane1': '/mnt/ngs_data/171020_D00829_0083_AHWTHYBCXY_R_PEdi_F5903_F5897/Bustard/BWA/proc1/s_1_sequence_ancient_hg19_evan.bam',
            '171020_D00829_0084_lane1': '/mnt/ngs_data/171020_D00829_0084_BHWVGYBCXY_R_PEdi_F5904_G3070/Bustard/BWA/proc1/s_1_sequence_ancient_hg19_evan.bam',
