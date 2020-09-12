@@ -14,8 +14,8 @@ import sys
 workdir: "/mnt/genotyping/sk_pipelines/projects/aDNA_Guam"
 
 #### Libraries #################################################################
-LIBRARIES = {'SP4210': ['D5864', 'F7638', 'F7639', 'F7640', 'F7641', 'F8851', 'F8852', 'F8853', 'F8854', 'F8855', 'F8856', 'F8857', 'F8858', 'F5861'],  # SP4210 - RBC1, Ritidian Beach Cave, Guam
-             'SP4211': ['D5865', 'F7642', 'F7643', 'F7644', 'F7645', 'F8862', 'F8863', 'F8864', 'F8865', 'F8866', 'F8867'],  # SP4211 - RBC2, Ritidian Beach Cave, Guam
+LIBRARIES = {'SP4210': ['D5864', 'F7638', 'F7639', 'F7640', 'F7641', 'F8851', 'F8852', 'F8853', 'F8854', 'F8855', 'F8856', 'F8857', 'F8858', 'F5861', 'F5056', 'F5057', 'F5058', 'F5059'],  # SP4210 - RBC1, Ritidian Beach Cave, Guam
+             'SP4211': ['D5865', 'F7642', 'F7643', 'F7644', 'F7645', 'F8862', 'F8863', 'F8864', 'F8865', 'F8866', 'F8867', 'F5060', 'F5061', 'F5062', 'F5063'],  # SP4211 - RBC2, Ritidian Beach Cave, Guam
             }
 LIBLIST = {lib: k for k, v in LIBRARIES.items() for lib in v}
 ################################################################################
