@@ -21,6 +21,7 @@ import re
 import subprocess
 
 import pysam
+import pandas as pd
 
 workdir: "/mnt/genotyping/sk_pipelines/projects/aDNA_Guam/"
 
@@ -55,7 +56,7 @@ rule link_plus_samplelist:
                     libid = extract_libid.search(basename(seqrun)).group(1)
                     seqrun_prefix = seqrun.replace(".bam", "")
                     # All reads
-                    samplefile.write(f'{sample}-{libid}_all\n')
+                    samplefile.write(f'{sample}-{libid}_all\tPAIRED\n')
                     subprocess.run(f'samtools view -H {seqrun_prefix}.uniq.L35MQ25.bam | ' +
                                    f'sed "s/gi|251831106|ref|NC_012920.1|/MT/g" | ' +
                                    f'samtools reheader - {seqrun_prefix}.uniq.L35MQ25.bam > ' +
@@ -76,17 +77,44 @@ rule write_configfile:
         "analysis/qual/mtDNA_contamination/mitoBench_perseqfile.config"
     message: "Generate the config file to run the mitoBench ancient mtDNA pipeline on single sequencing data files"
     params:
+        json_template = "/home/alexander_huebner/github//mitoBench-ancientMT/mitoBench_pipeline-config.json",
         bamdir = '/mnt/scratch/alexh/tmp/ancGuam/mitoBench/bamfiles',
         projdir = '/mnt/genotyping/sk_pipelines/projects/aDNA_Guam/analysis/qual/mtDNA_contamination',
         tmpdir = '/mnt/scratch/alexh/tmp/ancGuam/mitoBench'
     run:
         cwd = getcwd()
+
+        with open(params.json_template) as jsonfile:
+            config = json.load(jsonfile)
+
+        config['samplelist'] = f"{cwd}/{input[0]}"
+        config['seqdatadir'] = params.bamdir
+        config['seqdatatype'] = "bam"
+        config['seqdatasuffix'] = "bam"
+        config['sampleIDconstraint'] = "SP[0-9]+-[A-Z][0-9]+_[a-z]+"
+        config['projdir'] = params.projdir
+        config['tmpdir'] = params.tmpdir
+
         with open(output[0], "wt") as outfile:
-            outfile.write('{\n')
-            outfile.write(f'    "samplelist" : "{cwd}/{input[0]}",\n')
-            outfile.write(f'    "bamdir" : "{params.bamdir}",\n')
-            outfile.write(f'    "projdir" : "{params.projdir}",\n')
-            outfile.write(f'    "tmpdir" : "{params.tmpdir}",\n')
-            outfile.write('    "bamsuffix" : "bam",\n')
-            outfile.write('    "sampleIDconstraint" : "SP[0-9]+-[A-Z][0-9]+_[a-z]+"\n')
-            outfile.write('}\n')
+            json.dump(config, outfile)
+
+################################################################################
+
+#### Summarise #################################################################
+
+rule summary:
+    output:
+        "results/QUAL_mitoBench_perlibrary.csv"
+    message: "Concatenate per-sample summary tables"
+    params:
+        dir = '/mnt/genotyping/sk_pipelines/projects/aDNA_Guam/analysis/qual/mtDNA_contamination'
+    run:
+        summary_tables = pd.concat([pd.read_csv(sample + "/summary_table.csv", sep="\t")
+                                    for sample in glob("/mnt/genotyping/sk_pipelines/projects/aDNA_Guam/analysis/qual/mtDNA_contamination/SP*")])
+        summary_tables['library'] = summary_tables['sample'].str.extract(r'SP421[01]-([A-Z][0-9]+)_[a-z]+')
+        summary_tables['readType'] = summary_tables['sample'].str.extract(r'SP421[01]-[A-Z][0-9]+_([a-z]+)') \
+                .replace({'all': 'all reads',
+                          'deam': 'deaminated only reads'})
+        summary_tables['sample'] = summary_tables['sample'].str.extract(r'(SP421[01])-[A-Z][0-9]+_[a-z]+')
+        summary_tables[['sample', 'library', 'readType'] + [col for col in summary_tables.columns if col not in ['sample', 'library', 'readType']]] \
+            .to_csv(output[0], sep="\t", index=False)

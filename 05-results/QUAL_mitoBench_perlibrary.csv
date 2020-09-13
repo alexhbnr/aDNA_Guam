@@ -1,0 +1,21 @@
+sample	library	readType	number of reads	mean coverage	std coverage	sites >= 5-fold coverage	minimum coverage	maximum coverage	mode of read length	% of Ns in snpAD consensus sequence	flagged due to number of missing bases (> 1%)	haplogroup	haplogroup quality	no. of not-found polymorphisms	no. of remaining polymorphisms	proportion of contamination DNA (contamMix)	flagged due to contamination (> 10%)	mixEMT	quality
+SP4211	D5865	deaminated only reads	8245	23.5	10	16404	0	59	36	0.4	False	E2a	0.9599	0	0	0.09% (0.01-1.88%)	False	E2a (90.41%,291); M49a (9.59%,38)	high
+SP4211	F5061	deaminated only reads	8547	25.7	10	16548	0	69	37	0.1	False	E2a	0.9894	0	0	0.11% (0.02-1.76%)	False	E2a (91.44%,502); D4j1b2 (8.56%,60)	high
+SP4211	F5060	all reads	30229	97.1	27	16565	3	201	39	0.0	False	E2a	0.9268	0	0	47.75% (43.57-53.12%)	True	E2a (58.36%,174); V7a (22.84%,165); H2a1a1 (2.32%,35); E1a2a4 (2.28%,38); H81a (1.91%,21); H1ai1 (2.12%,17); H13a1a5 (1.94%,18); A5a1a2 (1.34%,42); H56a1 (1.96%,19); M33a1 (2.42%,15); M7b2 (1.19%,22); L3e4a1 (1.31%,29)	low
+SP4210	D5864	all reads	3592	10.2	5	14803	0	34	35	3.1	True	E2a	0.9176	0	0	17.44% (12.43-26.43%)	True	E2a (100%,3580)	low
+SP4210	F5059	all reads	5652	17.0	7	16178	0	45	39	0.5	False	E2a	0.9187	0	0	18.85% (14.78-24.32%)	True	E2a (100%,5632)	low
+SP4210	F5056	deaminated only reads	2764	8.3	4	13512	0	26	38	6.3	True	E2a	0.8691	0	0	1.42% (0.17-6.93%)	False	E2a (100%,2753)	low
+SP4210	D5864	deaminated only reads	1138	3.2	2	4077	0	12	36	46.7	True	E2a	0.6444	0	0	28.34% (12.78-50.32%)	True		low
+SP4211	F5062	deaminated only reads	7118	22.8	8	16486	0	55	45	0.2	False	E2a	0.9621	0	0	0.14% (0.02-2.18%)	False	E2a (100%,7101)	high
+SP4211	F5061	all reads	23113	70.1	21	16562	2	143	37	0.0	False	E2a	0.9894	0	0	15.54% (12.46-20.63%)	True	E2a (83.38%,575); B4g2 (3.87%,25); D4j1b2 (3.96%,45); M60a2 (4.29%,17); V7a1 (4.51%,39)	low
+SP4211	F5062	all reads	21488	68.9	21	16554	0	146	40	0.1	False	E2a	0.9894	0	0	8% (6.21-10.07%)	False	E2a (85.77%,515); M49a2 (2.64%,20); O1 (3.21%,27); D4e1c (3.6%,30); H81a (4.78%,49)	high
+SP4211	D5865	all reads	23350	66.8	22	16555	0	143	38	0.1	False	E2a	0.9894	0	0	4.96% (3.41-6.55%)	False	E2a (90.56%,818); M49a (9.44%,110)	high
+SP4210	F5056	all reads	9793	29.7	10	16558	0	75	39	0.1	False	E2a	0.9745	0	0	13.05% (10.3-17.74%)	True	E2a (100%,9765)	low
+SP4210	F5058	all reads	13346	41.2	14	16558	0	88	36	0.0	False	E2a	0.9894	0	0	21.58% (18.37-24.73%)	True	E2a (83.84%,816); V7a (16.16%,180)	low
+SP4211	F5063	deaminated only reads	9094	27.9	11	16500	0	72	40	0.1	False	E2a	0.9894	0	0	0.09% (0.01-1.53%)	False	E2a (100%,9074)	high
+SP4211	F5060	deaminated only reads	9055	27.0	10	16471	2	70	40	0.1	False	E2a	0.9894	0	0	1.33% (0.2-4.31%)	False	E2a (88.54%,346); E1a2a4 (11.46%,57)	high
+SP4211	F5063	all reads	26162	80.1	25	16561	0	167	40	0.0	False	E2a	0.9894	0	0	4.79% (3.5-6.61%)	False	E2a (89.81%,659); D4j1b2 (5.41%,95); S4 (3.48%,61); D1f1 (1.3%,15)	high
+SP4210	F5057	all reads	7457	25.3	9	16559	1	65	36	0.1	False	E2a	0.7724	0	0	76.69% (69.86-83.41%)	True	E2a (47.66%,287); H44b (52.34%,321)	low
+SP4210	F5058	deaminated only reads	3852	11.6	5	15601	0	35	40	2.2	True	E2a	0.9201	0	0	0.21% (0.03-3.51%)	False	E2a (100%,3841)	low
+SP4210	F5057	deaminated only reads	1924	5.8	3	9774	0	20	37	17.7	True	E2a	0.789	0	0	5.18% (0.69-20.93%)	False	E2a (100%,1916)	low
+SP4210	F5059	deaminated only reads	1765	5.2	3	8973	0	19	38	21.2	True	E2	0.7507	0	0	0.69% (0.09-10.71%)	False	E2 (100%,1756)	low
