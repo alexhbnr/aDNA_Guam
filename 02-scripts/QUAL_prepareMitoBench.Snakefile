@@ -104,17 +104,36 @@ rule write_configfile:
 
 rule summary:
     output:
-        "results/QUAL_mitoBench_perlibrary.csv"
+        summary = "results/QUAL_mitoBench_perlibrary.csv",
+        damageprofiles = "results/QUAL_mitoBench_perlibrary_CTfreqs.csv"
     message: "Concatenate per-sample summary tables"
     params:
         dir = '/mnt/genotyping/sk_pipelines/projects/aDNA_Guam/analysis/qual/mtDNA_contamination'
     run:
+        # Concatenate summary tables
         summary_tables = pd.concat([pd.read_csv(sample + "/summary_table.csv", sep="\t")
-                                    for sample in glob("/mnt/genotyping/sk_pipelines/projects/aDNA_Guam/analysis/qual/mtDNA_contamination/SP*")])
+                                    for sample in glob(f"{params.dir}/SP*")])
+        # Add C>T frequencies
+        damageprofiles = []
+        for sample in summary_tables['sample']:
+            misinc = pd.read_csv(f'{params.dir}/{sample}/{sample}_misincorporation.txt', sep="\t", skiprows=3)
+
+            misinc = misinc.loc[misinc['Pos'] < 4].groupby(['End', 'Pos'], as_index=False) \
+                         .agg({'C': 'sum', 'C>T': 'sum'})
+            misinc['freq'] = misinc['C>T'] / misinc['C']
+            misinc['sample'] = sample
+            damageprofiles.append(misinc)
+        damageprofiles = pd.concat(damageprofiles)
+        damageprofiles[['sample', 'End', 'Pos', 'C', 'C>T', 'freq']] \
+            .to_csv(output.damageprofiles, sep="\t", index=False)
+
+        # Clean up
         summary_tables['library'] = summary_tables['sample'].str.extract(r'SP421[01]-([A-Z][0-9]+)_[a-z]+')
         summary_tables['readType'] = summary_tables['sample'].str.extract(r'SP421[01]-[A-Z][0-9]+_([a-z]+)') \
                 .replace({'all': 'all reads',
                           'deam': 'deaminated only reads'})
         summary_tables['sample'] = summary_tables['sample'].str.extract(r'(SP421[01])-[A-Z][0-9]+_[a-z]+')
         summary_tables[['sample', 'library', 'readType'] + [col for col in summary_tables.columns if col not in ['sample', 'library', 'readType']]] \
-            .to_csv(output[0], sep="\t", index=False)
+            .to_csv(output.summary, sep="\t", index=False)
+
+
