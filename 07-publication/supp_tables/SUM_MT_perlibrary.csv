@@ -1,0 +1,21 @@
+sample	library	data type	number of unique reads	mean coverage [fold]	sites >= 5-fold coverage	5' 1st site [%]	5' 2nd site [%]	5' 3rd site [%]	3' 1st site [%]	3' 2nd site [%]	3' 3rd site [%]	haplogroup	haplogroup quality	proportion of contamination DNA (contamMix)	included in per-sample analysis
+SP4210	D5864	all reads	3592	10.2	14803	57.8	30.7	16.7	31.3	21.9	13.8	E2a	0.9176	17.44% (12.43-26.43%)	yes
+SP4210	D5864	deaminated only reads	1138	3.2	4077	88.2	61.8	39.2	61.2	53	34.5	E2a	0.6444	28.34% (12.78-50.32%)	no
+SP4210	F5056	all reads	9793	29.7	16558	43.9	21.2	12.3	38.2	19.2	11.6	E2a	0.9745	13.05% (10.3-17.74%)	yes
+SP4210	F5056	deaminated only reads	2764	8.3	13512	87	43.7	33.3	72.9	64.5	47	E2a	0.8691	1.42% (0.17-6.93%)	yes
+SP4210	F5057	all reads	7457	25.3	16559	44.1	22.9	13.6	32.1	17	10.6	E2a	0.7724	76.69% (69.86-83.41%)	no
+SP4210	F5057	deaminated only reads	1924	5.8	9774	83.4	58.5	39.2	73.7	50.1	33.1	E2a	0.789	5.18% (0.69-20.93%)	yes
+SP4210	F5058	all reads	13346	41.2	16558	49.4	25.6	13.4	33.4	21.4	14.1	E2a	0.9894	21.58% (18.37-24.73%)	yes
+SP4210	F5058	deaminated only reads	3852	11.6	15601	85.3	57.8	36.6	70.7	50.7	36.4	E2a	0.9201	0.21% (0.03-3.51%)	yes
+SP4210	F5059	all reads	5652	17	16178	54.8	28.4	13.3	37.2	22.6	15	E2a	0.9187	18.85% (14.78-24.32%)	yes
+SP4210	F5059	deaminated only reads	1765	5.2	8973	88.4	59.6	30.3	65.6	50	37.2	E2	0.7507	0.69% (0.09-10.71%)	yes
+SP4211	D5865	all reads	23350	66.8	16555	62.3	32	20.5	36.4	21.4	14.2	E2a	0.9894	4.96% (3.41-6.55%)	yes
+SP4211	D5865	deaminated only reads	8245	23.5	16404	91	62.7	37.9	62.4	43.8	32.9	E2a	0.9599	0.09% (0.01-1.88%)	yes
+SP4211	F5060	all reads	30229	97.1	16565	51.2	25.5	13.6	34	22.6	15.1	E2a	0.9268	47.75% (43.57-53.12%)	no
+SP4211	F5060	deaminated only reads	9055	27	16471	86.8	57.9	35.9	71	51	37.7	E2a	0.9894	1.33% (0.2-4.31%)	yes
+SP4211	F5061	all reads	23113	70.1	16562	57.4	35.3	20.1	41.3	25.1	19.5	E2a	0.9894	15.54% (12.46-20.63%)	yes
+SP4211	F5061	deaminated only reads	8547	25.7	16548	86.5	59.7	37.7	70.8	53	37.2	E2a	0.9894	0.11% (0.02-1.76%)	yes
+SP4211	F5062	all reads	21488	68.9	16554	55.9	29.5	15.6	34.2	23.5	15.2	E2a	0.9894	8% (6.21-10.07%)	yes
+SP4211	F5062	deaminated only reads	7118	22.8	16486	88.2	66.7	36.7	70.9	49.1	45.7	E2a	0.9621	0.14% (0.02-2.18%)	yes
+SP4211	F5063	all reads	26162	80.1	16561	58.9	31.7	16.9	38.9	25.8	18.6	E2a	0.9894	4.79% (3.5-6.61%)	yes
+SP4211	F5063	deaminated only reads	9094	27.9	16500	87.4	59.2	37.6	70.1	50.6	36.6	E2a	0.9894	0.09% (0.01-1.53%)	yes
