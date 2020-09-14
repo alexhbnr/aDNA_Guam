@@ -15,8 +15,7 @@ rule MT:
         "results/SUM_MT.csv"
     message: "Summarise the results from the mitoBench ancient mtDNA pipeline"
     params: 
-        summary = "analysis/qual/mtDNA_contamination/summary_table.csv",
-        fastadir = "analysis/qual/mtDNA_contamination/fasta",
-        sampledir = "analysis/qual/mtDNA_contamination/sample_stats",
+        summary = "results/QUAL_mitoBench_persample.csv",
+        sampledir = "analysis/mtDNA",
     script:
         "scripts/SMRY_MT-MT.R"
