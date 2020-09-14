@@ -15,7 +15,6 @@ rule plot_sex:
         "supp_figures/QUAL_sex.pdf"
     message: "Plot the inferred ratio of reads aligning to the X chromosome compared to the autosomes"
     params: 
-        obs = "../05-results/QUAL_observed_ratio_X_to_autosomes.csv",
-        exp = "../05-results/QUAL_expected_ratio_X_to_autosomes.csv"
+        obs = "../05-results/QUAL_observed_ratio_X_to_autosomes_shotgun.csv",
     script:
         "scripts/QUAL_sex-plot_sex.R"
