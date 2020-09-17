@@ -17,8 +17,8 @@ sex_plt <- ggplot(obs,
            geom_hline(yintercept = 0.5, colour = "grey50", lty = 3, size = 1.05) +
            geom_hline(yintercept = 0.33, colour = "grey50", lty = 3, size = 1.05) +
            geom_text(data = data.frame(x = c(-Inf, rep(Inf, 3)),
-                                       y = rep(c(0.52, 0.31), 2),
-                                       label = c("female", rep("", 2), "male")),
+                                       y = rep(c(0.31, 0.52), 2),
+                                       label = c("male", rep("", 2), "female")),
                       aes(x = x, y = y, label = label),
                       size = 4, hjust = rep(c(-0.1, rep(1.1, 3)), 2), inherit.aes = F) +
            labs(x = "sample",
