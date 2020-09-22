@@ -37,18 +37,18 @@ pedigree_map <- map_dfr(pedigree$`Individual ID`, function(id) {
 					r <- relationships[i,]
 					if (r$rel_info %in% reich_dataset$hgdpid) {
 					  if (match(r$`Individual ID`, reich_dataset$hgdpid) < match(r$rel_info, reich_dataset$hgdpid)) {
-					    tibble(sample1 = r$`Individual ID`,
-					  		 sample2 = r$rel_info,
+					    tibble(sample2 = r$`Individual ID`,
+					  		 sample1 = r$rel_info,
 					  		 relationship = r$rel_type)
 					  } else {
-					    tibble(sample1 = r$rel_info,
-					  		 sample2 = r$`Individual ID`,
-					  		 relationship = r$rel_type)
+					    tibble(sample2 = r$rel_info,
+					  		   sample1 = r$`Individual ID`,
+					  		   relationship = r$rel_type)
 					  }
 					} else {
-					    tibble(sample1 = r$`Individual ID`,
-					  		 sample2 = r$rel_info,
-					  		 relationship = "absent")
+					    tibble(sample2 = r$`Individual ID`,
+					  		   sample1 = r$rel_info,
+					  		   relationship = "absent")
 					}
 				  })
 				})
