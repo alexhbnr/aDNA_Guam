@@ -20,6 +20,8 @@ rule all:
     input:
         "analysis/qual/pairwiseDist/pairwiseDist_1240K.txt.gz"
 
+#### Based on data set used in publication #####################################
+
 rule calculate_pairwisedist_1240K:
     output:
         "analysis/qual/pairwiseDist/pairwiseDist_1240K.txt.gz"
@@ -53,3 +55,41 @@ rule calculate_pairwisedist_1240K:
         pd.DataFrame(pairwise_diff_results, columns=['ind1', 'ind2', 'fracDiff', 'noSites']) \
             .to_csv(output[0], sep="\t", index=False,
                     float_format="%.4f", compression="gzip")
+
+#### Based on 1000Genomes ######################################################
+
+rule tgenomes:
+    input:
+        "results/1000Genomes_pairwiseDiff.RData"
+
+rule download_samplelist:
+    output:
+        "documentation/1000Genomes_samplelist.xlsx"
+    message: "Download sample list of 1000Genomes samples"
+    params:
+        url = "http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/working/20130606_sample_info/20130606_sample_info.xlsx"
+    shell:
+        "wget -O {output} {params.url}"
+
+rule calculate_pairwise_differences:
+    input:
+        "documentation/1000Genomes_samplelist.xlsx",
+    output:
+        "analysis/qual/pairwise_differences/HGDP_pairwisediff.csv"
+    message: "Calculate pairwise differences between all HGDP samples present in Reich dataset"
+    shell:
+        "julia --threads 16 scripts/QUAL_pairwiseDist-pairwiseDist.jl"
+
+rule extract_sampleinfo:
+    input:
+        samplelist = "documentation/1000Genomes_samplelist.xlsx",
+        diff = "analysis/qual/pairwise_differences/HGDP_pairwisediff.csv"
+    output:
+        "results/1000Genomes_pairwiseDiff.RData"
+    message: "Extract information about relationship and add to pairwise differences"
+    params:
+        reich_ind = "/mnt/ancient/ModernHuman/ReichLab/reich_public_geno_v42.4/v42.4.1240K.ind",
+        pedigree = "documentation/20130606_g1k.ped"
+    script:
+        "scripts/QUAL_pairwiseDist-extract_sampleinfo.R"
+
