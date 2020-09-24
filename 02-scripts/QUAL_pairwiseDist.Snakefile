@@ -71,16 +71,16 @@ rule download_samplelist:
     shell:
         "wget -O {output} {params.url}"
 
-rule calculate_pairwise_differences:
+rule calculate_pairwise_differences_tgenomes:
     input:
         "documentation/1000Genomes_samplelist.xlsx",
     output:
         "analysis/qual/pairwise_differences/HGDP_pairwisediff.csv"
     message: "Calculate pairwise differences between all HGDP samples present in Reich dataset"
     shell:
-        "julia --threads 16 scripts/QUAL_pairwiseDist-pairwiseDist.jl"
+        "julia --threads 16 scripts/scripts/QUAL_pairwiseDist-pairwiseDist.jl"
 
-rule extract_sampleinfo:
+rule extract_sampleinfo_tgenomes:
     input:
         samplelist = "documentation/1000Genomes_samplelist.xlsx",
         diff = "analysis/qual/pairwise_differences/HGDP_pairwisediff.csv"
@@ -93,3 +93,28 @@ rule extract_sampleinfo:
     script:
         "scripts/QUAL_pairwiseDist-extract_sampleinfo.R"
 
+rule calculate_pairwisedist_ancient:
+    output:
+        pwdiff = "analysis/qual/pairwise_differences/ancientSamples_pairwiseDiff.csv",
+        numsites = "analysis/qual/pairwise_differences/ancientSamples_numsites.csv",
+        window_stats = "results/QUAL_pairwiseDist_perwindow.csv"
+    message: "Calculate pairwise differences between all ancient samples used in the study"
+    params:
+        prefix = "/home/irina_pugach/aDNA_Indonesia_Guam/New_Guam/Data/for_Alex/Clean.HO-MOD.ancGuamALL.HO-ANC.YRI.FRE.Liangdao.MEGA",
+        popoverview = "documentation/population_overview_SNPdata.csv"
+    shell:
+        "julia --threads 16 scripts/scripts/QUAL_pairwiseDist-pairwiseDist_ancient.jl"
+
+rule extract_sampleinfo_ancient:
+    input:
+        pwdiff = "analysis/qual/pairwise_differences/ancientSamples_pairwiseDiff.csv",
+        numsites = "analysis/qual/pairwise_differences/ancientSamples_numsites.csv",
+        window_stats = "results/QUAL_pairwiseDist_perwindow.csv"
+    output:
+        "results/ancient_pairwiseDiff.RData"
+    message: "Extract information about relationship and add to pairwise differences"
+    params:
+        prefix = "/home/irina_pugach/aDNA_Indonesia_Guam/New_Guam/Data/for_Alex/Clean.HO-MOD.ancGuamALL.HO-ANC.YRI.FRE.Liangdao.MEGA",
+        popoverview = "documentation/population_overview_SNPdata.csv"
+    script:
+        "scripts/QUAL_pairwiseDist-extract_sampleinfo_ancient.R"
