@@ -75,3 +75,15 @@ rule pairwiseDiff_plt:
           ggsave("{output}", plot = pairwiseDist_plt,
                  width = 160, height = 120, units = "mm", useDingbats = F)
         """)
+
+
+rule pairwiseDiff_tgenomes:
+    output:
+        "../07-publication/supp_figures/QUAL_pairwiseDist_1000Genomes.pdf"
+    message: "Plot the pairwise difference analysis results for the Guam samples using the 1000Genomes dataset for comparison"
+    params: 
+        dist_ancient = "../05-results/ancient_pairwiseDiff.RData",
+        dist_tgenomes = "../05-results/1000Genomes_pairwiseDiff.RData",
+        dist_window = "../05-results/QUAL_pairwiseDist_perwindow.csv"
+    script:
+        "scripts/QUAL_pairwiseDist_plt-pairwiseDiff_tgenomes.R"
