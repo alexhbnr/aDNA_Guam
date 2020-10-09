@@ -58,9 +58,11 @@ rule calculate_pairwisedist_1240K:
 
 #### Based on 1000Genomes ######################################################
 
-rule tgenomes:
+rule pairdiff:
     input:
-        "results/1000Genomes_pairwiseDiff.RData"
+        "results/1000Genomes_pairwiseDiff.RData",
+        "results/HGDP_pairwiseDiff.RData",
+        "results/ancient_pairwiseDiff.RData"
 
 rule download_samplelist:
     output:
@@ -83,15 +85,29 @@ rule calculate_pairwise_differences_tgenomes:
 rule extract_sampleinfo_tgenomes:
     input:
         samplelist = "documentation/1000Genomes_samplelist.xlsx",
-        diff = "analysis/qual/pairwise_differences/HGDP_pairwisediff.csv"
+        diff = "analysis/qual/pairwise_differences/1000Genomes_pairwisediff.csv"
     output:
         "results/1000Genomes_pairwiseDiff.RData"
-    message: "Extract information about relationship and add to pairwise differences"
+    message: "Extract information about relationship and add to pairwise differences for 1000Genomes data"
     params:
         reich_ind = "/mnt/ancient/ModernHuman/ReichLab/reich_public_geno_v42.4/v42.4.1240K.ind",
         pedigree = "documentation/20130606_g1k.ped"
     script:
         "scripts/QUAL_pairwiseDist-extract_sampleinfo.R"
+
+rule extract_sampleinfo_hgdp:
+    input:
+        samplelist = "documentation/1000Genomes_samplelist.xlsx",
+        diff = "analysis/qual/pairwise_differences/HGDP_pairwisediff.csv"
+    output:
+        "results/HGDP_pairwiseDiff.RData"
+    message: "Extract information about relationship and add to pairwise differences for HGDP dataset"
+    params:
+        reich_ind = "data/reich_public_geno_v42.4.1240K_HO.ind",
+        samplelist = "documentation/igsr-human_genome_diversity_project.tsv",
+        pedigree = "documentation/hgdp-ceph_relationships.csv"
+    script:
+        "scripts/QUAL_pairwiseDist-extract_sampleinfo_HGDP.R"
 
 rule calculate_pairwisedist_ancient:
     output:
