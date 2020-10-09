@@ -10,7 +10,7 @@ pwdiff_ancient <- pairwise_diff_detail
 rm(pairwise_diff_detail)
 guam_pwdiff_window <- fread(snakemake@params[["dist_window"]])
 
-# A: Pairwise differences between HGDP samples 
+# A: Pairwise differences between 1000Genomes samples 
 ## Subset unrelated to 100,000 observations
 set.seed(0)
 n <- 100000
@@ -30,7 +30,7 @@ pwdiff_tgenomes_plt <-  ggplot(pwdiff_tgenomes_subset,
                                aes(x = relationship, y = PWdiff, group = relationship)) +
                         geom_boxplot() +
                         labs(y = "pairwise difference",
-                             x = "relationship between pairs of HGDP samples") +
+                             x = "relationship between pairs of 1000Genomes samples") +
                         scale_y_continuous(limits = c(0.1, 0.45), breaks = seq(0.1, 0.45, 0.05)) +
                         theme_classic(base_size = 9)
 
@@ -65,7 +65,7 @@ pwdiff_ancient_plt <- pwdiff_ancient %>%
                       scale_y_continuous(limits = c(0.1, 0.35), breaks = seq(0.1, 0.35, 0.05)) +
                       labs(x = "comparison within and between ancient populations",
                            y = "pairwise differences",
-                           colour = "mean pairwise difference in HGDP samples") +
+                           colour = "mean pairwise difference in 1000Genomes samples") +
                       theme_classic(base_size = 9) +
                       theme(axis.text.x = element_text(size = 6),
                             legend.position = "top",
