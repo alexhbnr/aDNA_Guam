@@ -1,0 +1,13 @@
+{
+    "__default__": {
+        "vfree": "4G",
+        "hvmem": "4G",
+        "class": "*"
+    },
+
+    "leeHom_nocollapse": {
+        "vfree": "12G",
+        "hvmem": "12G",
+        "class": "default"
+    }
+}

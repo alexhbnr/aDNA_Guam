@@ -1,0 +1,59 @@
+sample_alias	platform	instrument_model	library_name	library_source	library_selection	library_strategy	design_description	library_construction_protocol	library_layout	insert_size	file_name	file_md5
+ERS5341448	ILLUMINA	Illumina HiSeq 2500	D5864_shotgun	GENOMIC	RANDOM	WGS			PAIRED	250	Pugach_PNAS_Guam/D5864_shotgun.bam	801b71df371f29595c03fc28f6b70ae3
+ERS5341448	ILLUMINA	Illumina HiSeq 2500	D5864_MT	GENOMIC	RANDOM	Targeted-Capture		in-solution capture enrichment for human mtDNA	PAIRED	250	Pugach_PNAS_Guam/D5864_MT.bam	6de80df1397a8ef54bcd971546801f8c
+ERS5341448	ILLUMINA	Illumina HiSeq 2500	D5864_nuclear	GENOMIC	RANDOM	Targeted-Capture		in-solution capture enrichment for human nuclear DNA	PAIRED	250	Pugach_PNAS_Guam/D5864_nuclear.bam	9a81e4944e7afde9509275491580ddf3
+ERS5341448	ILLUMINA	Illumina HiSeq 2500	F7638_shotgun	GENOMIC	RANDOM	WGS			PAIRED	250	Pugach_PNAS_Guam/F7638_shotgun.bam	195c35664d4e8811126a87a325606b15
+ERS5341448	ILLUMINA	Illumina HiSeq 2500	F7638_nuclear	GENOMIC	RANDOM	Targeted-Capture		in-solution capture enrichment for human nuclear DNA	PAIRED	250	Pugach_PNAS_Guam/F7638_nuclear.bam	e0c35ad9e6cfde2f8261c7654615bb22
+ERS5341448	ILLUMINA	Illumina HiSeq 2500	F7639_shotgun	GENOMIC	RANDOM	WGS			PAIRED	250	Pugach_PNAS_Guam/F7639_shotgun.bam	dc489843ea7bca17d97f1af2bfae6f9d
+ERS5341448	ILLUMINA	Illumina HiSeq 2500	F7639_nuclear	GENOMIC	RANDOM	Targeted-Capture		in-solution capture enrichment for human nuclear DNA	PAIRED	250	Pugach_PNAS_Guam/F7639_nuclear.bam	72320f806b7ce52d5a0ed76d51df8b9b
+ERS5341448	ILLUMINA	Illumina HiSeq 2500	F7640_shotgun	GENOMIC	RANDOM	WGS			PAIRED	250	Pugach_PNAS_Guam/F7640_shotgun.bam	24a850e32ecc8b5c8e4e2fb6305f2571
+ERS5341448	ILLUMINA	Illumina HiSeq 2500	F7640_nuclear	GENOMIC	RANDOM	Targeted-Capture		in-solution capture enrichment for human nuclear DNA	PAIRED	250	Pugach_PNAS_Guam/F7640_nuclear.bam	ff503760651460042771fdc0977736e7
+ERS5341448	ILLUMINA	Illumina HiSeq 2500	F7641_shotgun	GENOMIC	RANDOM	WGS			PAIRED	250	Pugach_PNAS_Guam/F7641_shotgun.bam	af6e7add3cdab8946c050b0a42cf3bef
+ERS5341448	ILLUMINA	Illumina HiSeq 2500	F7641_nuclear	GENOMIC	RANDOM	Targeted-Capture		in-solution capture enrichment for human nuclear DNA	PAIRED	250	Pugach_PNAS_Guam/F7641_nuclear.bam	a1ddc2c20038d29ceeca4dc3d558f22d
+ERS5341448	ILLUMINA	Illumina HiSeq 2500	F8851_shotgun	GENOMIC	RANDOM	WGS			PAIRED	250	Pugach_PNAS_Guam/F8851_shotgun.bam	8c35034ad6678b55829a2d799cdb6137
+ERS5341448	ILLUMINA	Illumina HiSeq 2500	F8851_nuclear	GENOMIC	RANDOM	Targeted-Capture		in-solution capture enrichment for human nuclear DNA	PAIRED	250	Pugach_PNAS_Guam/F8851_nuclear.bam	1fbce9baddcf9dce545c62d34c42c697
+ERS5341448	ILLUMINA	Illumina HiSeq 2500	F8852_shotgun	GENOMIC	RANDOM	WGS			PAIRED	250	Pugach_PNAS_Guam/F8852_shotgun.bam	e233447727ef5e7c2b24de6ae8b668e1
+ERS5341448	ILLUMINA	Illumina HiSeq 2500	F8852_nuclear	GENOMIC	RANDOM	Targeted-Capture		in-solution capture enrichment for human nuclear DNA	PAIRED	250	Pugach_PNAS_Guam/F8852_nuclear.bam	58bf737390df9801c849adf8b548a7d5
+ERS5341448	ILLUMINA	Illumina HiSeq 2500	F8853_shotgun	GENOMIC	RANDOM	WGS			PAIRED	250	Pugach_PNAS_Guam/F8853_shotgun.bam	380facb6af4c30075db4effa730fb923
+ERS5341448	ILLUMINA	Illumina HiSeq 2500	F8853_nuclear	GENOMIC	RANDOM	Targeted-Capture		in-solution capture enrichment for human nuclear DNA	PAIRED	250	Pugach_PNAS_Guam/F8853_nuclear.bam	9f2c1c1ee2fc8ac3198e21351ccb5a92
+ERS5341448	ILLUMINA	Illumina HiSeq 2500	F8854_shotgun	GENOMIC	RANDOM	WGS			PAIRED	250	Pugach_PNAS_Guam/F8854_shotgun.bam	835050941f3e0221ebb939ad16f55dc5
+ERS5341448	ILLUMINA	Illumina HiSeq 2500	F8854_nuclear	GENOMIC	RANDOM	Targeted-Capture		in-solution capture enrichment for human nuclear DNA	PAIRED	250	Pugach_PNAS_Guam/F8854_nuclear.bam	c1aa65a271386c8f59251d6380195d62
+ERS5341448	ILLUMINA	Illumina HiSeq 2500	F8855_shotgun	GENOMIC	RANDOM	WGS			PAIRED	250	Pugach_PNAS_Guam/F8855_shotgun.bam	9e0260dcdeef15ba72484d05d4cbbf53
+ERS5341448	ILLUMINA	Illumina HiSeq 2500	F8855_nuclear	GENOMIC	RANDOM	Targeted-Capture		in-solution capture enrichment for human nuclear DNA	PAIRED	250	Pugach_PNAS_Guam/F8855_nuclear.bam	785f41662a9dba65e4e2f0ad7b06cf7e
+ERS5341448	ILLUMINA	Illumina HiSeq 2500	F8856_shotgun	GENOMIC	RANDOM	WGS			PAIRED	250	Pugach_PNAS_Guam/F8856_shotgun.bam	074355836872480d8426c4c445eda6e5
+ERS5341448	ILLUMINA	Illumina HiSeq 2500	F8856_nuclear	GENOMIC	RANDOM	Targeted-Capture		in-solution capture enrichment for human nuclear DNA	PAIRED	250	Pugach_PNAS_Guam/F8856_nuclear.bam	e46102d12db96d6eca80709731ce83c5
+ERS5341448	ILLUMINA	Illumina HiSeq 2500	F8857_shotgun	GENOMIC	RANDOM	WGS			PAIRED	250	Pugach_PNAS_Guam/F8857_shotgun.bam	f651da131c0a79652c6b2cbbe2144fb6
+ERS5341448	ILLUMINA	Illumina HiSeq 2500	F8857_nuclear	GENOMIC	RANDOM	Targeted-Capture		in-solution capture enrichment for human nuclear DNA	PAIRED	250	Pugach_PNAS_Guam/F8857_nuclear.bam	361b07c8f17468e30f5c090deb2eefbf
+ERS5341448	ILLUMINA	Illumina HiSeq 2500	F8858_shotgun	GENOMIC	RANDOM	WGS			PAIRED	250	Pugach_PNAS_Guam/F8858_shotgun.bam	e6150af1f279c9ab34e0334752a407dc
+ERS5341448	ILLUMINA	Illumina HiSeq 2500	F8858_nuclear	GENOMIC	RANDOM	Targeted-Capture		in-solution capture enrichment for human nuclear DNA	PAIRED	250	Pugach_PNAS_Guam/F8858_nuclear.bam	b2cbc6c5400ee0fb62b04f61a86d2771
+ERS5341448	ILLUMINA	Illumina HiSeq 2500	F5056_MT	GENOMIC	RANDOM	Targeted-Capture		in-solution capture enrichment for human mtDNA	PAIRED	250	Pugach_PNAS_Guam/F5056_MT.bam	e17cd8431abc2276235e832432c7a546
+ERS5341448	ILLUMINA	Illumina HiSeq 2500	F5057_MT	GENOMIC	RANDOM	Targeted-Capture		in-solution capture enrichment for human mtDNA	PAIRED	250	Pugach_PNAS_Guam/F5057_MT.bam	7ed3025d6cc4ddca75ea7b3518d62cda
+ERS5341448	ILLUMINA	Illumina HiSeq 2500	F5058_MT	GENOMIC	RANDOM	Targeted-Capture		in-solution capture enrichment for human mtDNA	PAIRED	250	Pugach_PNAS_Guam/F5058_MT.bam	3f4082a57921cbe1fd6dd6ffe5ce6a32
+ERS5341448	ILLUMINA	Illumina HiSeq 2500	F5059_MT	GENOMIC	RANDOM	Targeted-Capture		in-solution capture enrichment for human mtDNA	PAIRED	250	Pugach_PNAS_Guam/F5059_MT.bam	b7930bb2a4dc5843d604b19e980bc851
+ERS5341449	ILLUMINA	Illumina HiSeq 2500	D5865_shotgun	GENOMIC	RANDOM	WGS			PAIRED	250	Pugach_PNAS_Guam/D5865_shotgun.bam	0108b36fc0a7be9dcee46e9d3d6caf28
+ERS5341449	ILLUMINA	Illumina HiSeq 2500	D5865_MT	GENOMIC	RANDOM	Targeted-Capture		in-solution capture enrichment for human mtDNA	PAIRED	250	Pugach_PNAS_Guam/D5865_MT.bam	5c3c5383e7a7182b44ea208375bfd2b7
+ERS5341449	ILLUMINA	Illumina HiSeq 2500	D5865_nuclear	GENOMIC	RANDOM	Targeted-Capture		in-solution capture enrichment for human nuclear DNA	PAIRED	250	Pugach_PNAS_Guam/D5865_nuclear.bam	45f1bf6cf43333306adb9f33d548dd5d
+ERS5341449	ILLUMINA	Illumina HiSeq 2500	F7642_shotgun	GENOMIC	RANDOM	WGS			PAIRED	250	Pugach_PNAS_Guam/F7642_shotgun.bam	3109250c97e5ea1946c9e822ccf68324
+ERS5341449	ILLUMINA	Illumina HiSeq 2500	F7642_nuclear	GENOMIC	RANDOM	Targeted-Capture		in-solution capture enrichment for human nuclear DNA	PAIRED	250	Pugach_PNAS_Guam/F7642_nuclear.bam	b81e5114a59a1d9a23a93289c9a57361
+ERS5341449	ILLUMINA	Illumina HiSeq 2500	F7643_shotgun	GENOMIC	RANDOM	WGS			PAIRED	250	Pugach_PNAS_Guam/F7643_shotgun.bam	c18903f0530625ae8fdf45a73bf9adb7
+ERS5341449	ILLUMINA	Illumina HiSeq 2500	F7643_nuclear	GENOMIC	RANDOM	Targeted-Capture		in-solution capture enrichment for human nuclear DNA	PAIRED	250	Pugach_PNAS_Guam/F7643_nuclear.bam	8a5e0437be0e2f1b734a00f7325b97e7
+ERS5341449	ILLUMINA	Illumina HiSeq 2500	F7644_shotgun	GENOMIC	RANDOM	WGS			PAIRED	250	Pugach_PNAS_Guam/F7644_shotgun.bam	779d1bfd4b07e56d21695d3fd299242d
+ERS5341449	ILLUMINA	Illumina HiSeq 2500	F7644_nuclear	GENOMIC	RANDOM	Targeted-Capture		in-solution capture enrichment for human nuclear DNA	PAIRED	250	Pugach_PNAS_Guam/F7644_nuclear.bam	1bd0ca36f5ce5036c05596c401ef9a7b
+ERS5341449	ILLUMINA	Illumina HiSeq 2500	F7645_shotgun	GENOMIC	RANDOM	WGS			PAIRED	250	Pugach_PNAS_Guam/F7645_shotgun.bam	b5d543916ffd85cbfd7141cb899977e9
+ERS5341449	ILLUMINA	Illumina HiSeq 2500	F7645_nuclear	GENOMIC	RANDOM	Targeted-Capture		in-solution capture enrichment for human nuclear DNA	PAIRED	250	Pugach_PNAS_Guam/F7645_nuclear.bam	22b552b5d8511a6d4f925c76527e95e4
+ERS5341449	ILLUMINA	Illumina HiSeq 2500	F8862_shotgun	GENOMIC	RANDOM	WGS			PAIRED	250	Pugach_PNAS_Guam/F8862_shotgun.bam	276abcd52b67bb798b64c184bb34699c
+ERS5341449	ILLUMINA	Illumina HiSeq 2500	F8862_nuclear	GENOMIC	RANDOM	Targeted-Capture		in-solution capture enrichment for human nuclear DNA	PAIRED	250	Pugach_PNAS_Guam/F8862_nuclear.bam	e5d8574c95469d64a776e101f67d3a00
+ERS5341449	ILLUMINA	Illumina HiSeq 2500	F8863_shotgun	GENOMIC	RANDOM	WGS			PAIRED	250	Pugach_PNAS_Guam/F8863_shotgun.bam	b75e766c834ce615e51e42b7aba9d84a
+ERS5341449	ILLUMINA	Illumina HiSeq 2500	F8863_nuclear	GENOMIC	RANDOM	Targeted-Capture		in-solution capture enrichment for human nuclear DNA	PAIRED	250	Pugach_PNAS_Guam/F8863_nuclear.bam	638af0dc407853f250961e473509ee3b
+ERS5341449	ILLUMINA	Illumina HiSeq 2500	F8864_shotgun	GENOMIC	RANDOM	WGS			PAIRED	250	Pugach_PNAS_Guam/F8864_shotgun.bam	bb250c40825ea238139f4ed585c4c13f
+ERS5341449	ILLUMINA	Illumina HiSeq 2500	F8864_nuclear	GENOMIC	RANDOM	Targeted-Capture		in-solution capture enrichment for human nuclear DNA	PAIRED	250	Pugach_PNAS_Guam/F8864_nuclear.bam	a49f06ba7f0856d6289cbc5efbd00fd0
+ERS5341449	ILLUMINA	Illumina HiSeq 2500	F8865_shotgun	GENOMIC	RANDOM	WGS			PAIRED	250	Pugach_PNAS_Guam/F8865_shotgun.bam	817fcaa10e5db8624d03497bf0ed5ac0
+ERS5341449	ILLUMINA	Illumina HiSeq 2500	F8865_nuclear	GENOMIC	RANDOM	Targeted-Capture		in-solution capture enrichment for human nuclear DNA	PAIRED	250	Pugach_PNAS_Guam/F8865_nuclear.bam	c998c9d3524dbb5848f328a2485d5e0b
+ERS5341449	ILLUMINA	Illumina HiSeq 2500	F8866_shotgun	GENOMIC	RANDOM	WGS			PAIRED	250	Pugach_PNAS_Guam/F8866_shotgun.bam	b6b617c1a44c56a644b336193b3b2639
+ERS5341449	ILLUMINA	Illumina HiSeq 2500	F8866_nuclear	GENOMIC	RANDOM	Targeted-Capture		in-solution capture enrichment for human nuclear DNA	PAIRED	250	Pugach_PNAS_Guam/F8866_nuclear.bam	5fe6eeef35b5df8c7f47518aef707939
+ERS5341449	ILLUMINA	Illumina HiSeq 2500	F8867_shotgun	GENOMIC	RANDOM	WGS			PAIRED	250	Pugach_PNAS_Guam/F8867_shotgun.bam	833c380a2fd89b9ab6d56e020b24b6b0
+ERS5341449	ILLUMINA	Illumina HiSeq 2500	F8867_nuclear	GENOMIC	RANDOM	Targeted-Capture		in-solution capture enrichment for human nuclear DNA	PAIRED	250	Pugach_PNAS_Guam/F8867_nuclear.bam	cbfeaf55b2d6caae92020d7e3f1d4b89
+ERS5341449	ILLUMINA	Illumina HiSeq 2500	F5060_MT	GENOMIC	RANDOM	Targeted-Capture		in-solution capture enrichment for human mtDNA	PAIRED	250	Pugach_PNAS_Guam/F5060_MT.bam	3d179de4b3a13eb0325fd6dee8b0aed4
+ERS5341449	ILLUMINA	Illumina HiSeq 2500	F5061_MT	GENOMIC	RANDOM	Targeted-Capture		in-solution capture enrichment for human mtDNA	PAIRED	250	Pugach_PNAS_Guam/F5061_MT.bam	b1f2c074db0c44595e2a32b4aded3c71
+ERS5341449	ILLUMINA	Illumina HiSeq 2500	F5062_MT	GENOMIC	RANDOM	Targeted-Capture		in-solution capture enrichment for human mtDNA	PAIRED	250	Pugach_PNAS_Guam/F5062_MT.bam	838f69c46ac31a372fe0ef687469b087
+ERS5341449	ILLUMINA	Illumina HiSeq 2500	F5063_MT	GENOMIC	RANDOM	Targeted-Capture		in-solution capture enrichment for human mtDNA	PAIRED	250	Pugach_PNAS_Guam/F5063_MT.bam	35b7f2b42b049c92ea9711022e47dedf
